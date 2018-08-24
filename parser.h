@@ -12,6 +12,7 @@
 #define INVALIDCOMMAND "Error: invalid command\n"
 #define MARKERROR "Error: the value should be 0 or 1\n"
 
+
 void parse (char str[MAXCommand]);
 
 #endif /* PARSER_H_ */
