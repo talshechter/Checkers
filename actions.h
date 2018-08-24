@@ -11,6 +11,10 @@
 #include<stdlib.h>
 #include "parser.h"
 
+#define FILEERROR "Error: File doesn't exist or cannot be opened\n"
+#define FIXED "Error: cell is fixed\n"
+#define SUCCESS "Puzzle solved successfully\n"
+
 void solve (char* fileName);
 
 void edit(char* fileName);
