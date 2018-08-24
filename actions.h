@@ -11,6 +11,8 @@
 #include<stdlib.h>
 #include "parser.h"
 
+#define FILEERROR "Error: File doesn't exist or cannot be opened\n"
+
 void solve (char* fileName);
 
 void edit(char* fileName);

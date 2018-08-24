@@ -3,23 +3,51 @@
 #include<stdlib.h>
 #include "parser.h"
 #include "game.h"
+#include "actions.h"
 
 extern int GameMode;
 
 void solve(char* fileName) {
-	printf("solve: %s", fileName);
+	FILE* fp = NULL;
+	fp = fopen(fileName, "r");
+	if (fp == NULL ) {
+		printf(FILEERROR);
+		return;
+	}
+	GameMode = 1; /*solve mode*/
+	createBoard(fp);
+	fclose(fp);
 }
 
 void edit(char* fileName) {
-	printf("edit: %s", fileName);
+	FILE* fp = NULL;
+	fp = fopen(fileName, "r");
+	if (fp == NULL ) {
+		printf("Error: File cannot be opened\n");
+		/*
+		 * Different error than in solve..
+		 */
+		return;
+	}
+	GameMode = 2; /*edit mode*/
+	createBoard(fp);
+	fclose(fp);
 }
 
 void editEmpty() {
-	printf("edit empty");
+	GameMode =2;
+	createEmptyBoard();
 }
 
+/*checked in parser that we are in solve mode, and that
+ * this is a number */
 void markErrors(int x) {
-	printf("mark errors: %d", x);
+	if (x!=0 && x!=1){
+		printf(MARKERROR);
+		return;
+	}
+	board.markError=x;
+
 }
 
 void printBoard() {

@@ -12,6 +12,7 @@
 typedef struct{
 	int value;
 	int fixed; 	/** fixed is 1 if value is fixed. else- 0*/
+	int error; /** error=1 if cell is erroneous*/
 }Cell;
 
 typedef struct{
@@ -25,5 +26,7 @@ typedef struct{
 }Board;
 
 Board board;
+void createBoard(FILE* fp);
+void createEmptyBoard();
 
 #endif /* GAME_H_ */
