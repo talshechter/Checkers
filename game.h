@@ -7,6 +7,7 @@
 
 #ifndef GAME_H_
 #define GAME_H_
+#include <stdlib.h>
 
 #define CALLOC "Error: calloc has failed\n"
 typedef struct{
@@ -26,6 +27,7 @@ typedef struct{
 }Board;
 
 Board board;
+
 void createBoard(FILE* fp);
 void createEmptyBoard();
 
