@@ -51,8 +51,47 @@ void markErrors(int x) {
 }
 
 void printBoard() {
-	printf("printboard");
+	int i = 0, j = 0, k = 0;
+	for (i = 0; i < board.N * 4 + board.row + 1; i++) {
+		printf("-");
+	}
+	printf("\n");
+
+	for (i = 0; i < board.N; i++) {
+		printf("|");
+		for (j = 0; j < board.N; j++) {
+			printf(" ");
+			if (board.gameBoard[i][j].value == 0) {
+				printf("  ");
+			} else {
+				printf("%2d", board.gameBoard[i][j].value);
+			}
+			if (board.gameBoard[i][j].fixed == 1) {
+				printf(".");
+			} else if (GameMode == 2 || board.markError == 1) {
+				if (board.gameBoard[i][j].error == 1) {
+					printf("*");
+				} else {
+					printf(" ");
+				}
+			} else {
+				printf(" ");
+			}
+
+			if (j % board.col == (board.col - 1)) {
+				printf("|");
+			}
+		}
+		printf("\n");
+		if (i % board.row == (board.row - 1)) {
+			for (k = 0; k < board.N * 4 + board.row + 1; k++) {
+				printf("-");
+			}
+			printf("\n");
+		}
+	}
 }
+
 
 /*
  * Set value z to row=x, col=y, if legal.
@@ -75,14 +114,19 @@ void set(int x, int y, int z) {
 	/** if value is 0, delete current value in cell*/
 	if (z == 0) {
 		board.gameBoard[y - 1][x - 1].value = 0;
+		board.gameBoard[y - 1][x - 1].error = 0;
 		board.numBlanks++;
 	} else {
 		/** set the value and mark error if value is wrong */
-		board.gameBoard[y - 1][x - 1].value = z;
-		board.numBlanks--;
-		if (validValue(x, y, z) == 1) {
+
+		if (validValue(x, y, z) == 0) {
 			board.gameBoard[y - 1][x - 1].error = 1;
 		}
+		else {
+			board.gameBoard[y - 1][x - 1].error = 0;
+		}
+		board.gameBoard[y - 1][x - 1].value = z;
+		board.numBlanks--;
 	}
 	/**
 	 *TODO: clear any move beyond current move from
@@ -103,6 +147,10 @@ void set(int x, int y, int z) {
 	}
 }
 
+
+int validateBoard() {
+	return 0;
+}
 /**
  * returns 1 if value is valid, else retuen 0.
  * x = col, y=row
@@ -112,23 +160,25 @@ int validValue(int x, int y, int z) {
 	int row = 0, col = 0;
 
 	/** check row */
-	for (i = 0; i < board.row * board.col; i++) {
+	for (i = 0; i < board.N; i++) {
 		if (board.gameBoard[y - 1][i].value == z) {
 			return 0;
 		}
 	}
 	/** check col */
-	for (i = 0; i < board.row * board.col; i++) {
+	for (i = 0; i < board.N; i++) {
 		if (board.gameBoard[i][x - 1].value == z) {
+			printf("col");
 			return 0;
 		}
 	}
 	/**  check square */
-	row = ((y - 1) / board.row) * row;
+	row = ((y - 1) / board.row) * board.row;
 	col = ((x - 1) / board.col) * board.col;
 	for (i = row; i < row + board.row; i++) {
 		for (j = col; j < col + board.col; j++) {
 			if (board.gameBoard[i][j].value == z) {
+				printf("square");
 				return 0;
 			}
 		}
@@ -139,12 +189,9 @@ int validValue(int x, int y, int z) {
  * TODO: the function return 1 if the board has no errors, else return 0
  * use ILP
  */
-int validateBoard() {
-	return 0;
-}
 
 void printErrorNotInRange(int X) {
-	printf("Error: value not in range 0-%d\n",X);
+	printf("Error: value not in range 0-%d\n", X);
 }
 
 void validate() {

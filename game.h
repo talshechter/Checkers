@@ -8,6 +8,7 @@
 #ifndef GAME_H_
 #define GAME_H_
 #include <stdlib.h>
+#include <stdio.h>
 
 #define CALLOC "Error: calloc has failed\n"
 typedef struct{

@@ -41,5 +41,7 @@ void numSolutions();
 void autofill();
 void reset();
 void exitGame();
+int validateBoard();
+int validValue(int x, int y, int z);
 
 #endif /* ACTIONS_H_ */
