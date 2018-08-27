@@ -62,7 +62,7 @@ void parse(char str[MAXCommand]) {
 	 */
 	else if (strcmp(token, "mark_errors") == 0) {
 		/******
-		 * ^^^^^^^^^^^^^^^^^^^^^^^^^ gamemode: 0 = init, 1= solve, 2= edit ^^^^^^^^^^^^^^^^^^^^^^^^^
+		 * ^^^^^^^^^^^^^^^^^^^^^^^^^ gamemode: 0=init, 1=solve, 2=edit ^^^^^^^^^^^^^^^^^^^^^^^^^
 		 * 							define GameMode! somewhere
 		 */
 		if (GameMode != 1) {
@@ -91,7 +91,13 @@ void parse(char str[MAXCommand]) {
 	 *<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< PRINT_BOARD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	 */
 	else if (strcmp(token, "print_board")==0) {
-		printBoard();
+		if(GameMode!=0){
+			printBoard();
+		}
+		else{
+			printf(INVALIDCOMMAND);
+		}
+		return;
 	}
 	/**
 	 *<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< SET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
